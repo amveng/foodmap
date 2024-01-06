@@ -25,6 +25,15 @@ defmodule FoodmapWeb.Router do
   #   pipe_through :api
   # end
 
+  scope "/api", FoodmapWeb.Api, as: :api do
+    pipe_through :api
+
+
+    scope "/v1", V1, as: :v1 do
+      resources "/foods", FoodController, except: [:new, :edit]
+    end
+  end
+
   # Enable LiveDashboard and Swoosh mailbox preview in development
   if Application.compile_env(:foodmap, :dev_routes) do
     # If you want to use the LiveDashboard in production, you should put
